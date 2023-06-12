@@ -11,15 +11,17 @@ namespace LevvaCoins.Data.Repositories
         {
             _context = context;
         }
-        public void Create(Categoria categoria)
+        public Categoria Create(Categoria categoria)
         {
             _context.Categoria.Add(categoria);
             _context.SaveChanges();
+            return categoria;
         }
 
         public void Delete(int id)
         {
             var categoria = _context.Categoria.Find(id);
+            _context.Categoria.Remove(categoria);
             _context.SaveChanges();
         }
 

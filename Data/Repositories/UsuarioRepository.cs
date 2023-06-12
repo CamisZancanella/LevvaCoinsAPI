@@ -1,6 +1,6 @@
 ﻿using LevvaCoins.Data.Interfaces;
 using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
+using LevvaCoins.Logic.Dtos;
 
 namespace LevvaCoins.Data.Repositories
 {
@@ -31,7 +31,7 @@ namespace LevvaCoins.Data.Repositories
 
         public Usuario GetByEmailAndSenha(string email, string senha)
         {
-            return _context.Usuario.FirstOrDefault(x => x.Email.Equals(email) && x.Senha.Equals(senha));
+            return _context.Usuario.FirstOrDefault(x => x.Email.Equals(email) && x.Password.Equals(senha));
         }
         public List<Usuario> GetAll()
         {

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LevvaCoins.Data.Interfaces;
 using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
 using LevvaCoins.Logic.Dtos;
 using LevvaCoins.Logic.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -51,9 +50,9 @@ namespace LevvaCoins.Logic.Services
            var _usuario = _mapper.Map<Usuario>(usuario);
             _repository.Update(_usuario);
         }
-        public LoginDto Login(LoginDto loginDto)
+        public LoginResponseDto Login(LoginDto loginDto)
         {
-            var usuario = _repository.GetByEmailAndSenha(loginDto.Email, loginDto.Senha);
+            var usuario = _repository.GetByEmailAndSenha(loginDto.Email, loginDto.Password);
 
             if (usuario == null)
                 return null;
@@ -65,19 +64,20 @@ namespace LevvaCoins.Logic.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuario.Email)
+                    new Claim(ClaimTypes.Name, usuario.Id.ToString()),
+                    new Claim(ClaimTypes.Email, usuario.Email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var loginResponse = new LoginResponseDto { Id = usuario.Id, Email = usuario.Email, Name = usuario.Name };
+            loginResponse.Token = $"Bearer {tokenHandler.WriteToken(token)}";
+            //loginDto.Token = tokenHandler.WriteToken(token);
+            //loginDto.Nome = usuario.Nome;
+            //loginDto.Email = usuario.Email;
 
-            loginDto.Token = tokenHandler.WriteToken(token);
-            loginDto.Nome = usuario.Nome;
-            loginDto.Email = usuario.Email;
-            loginDto.Senha = null;
-
-            return loginDto;
+            return loginResponse;
         }
     }
 }

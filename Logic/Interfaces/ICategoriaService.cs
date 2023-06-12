@@ -1,10 +1,10 @@
-﻿using LevvaCoins.Logic.Dto;
+﻿using LevvaCoins.Logic.Dtos;
 
 namespace LevvaCoins.Logic.Interfaces
 {
     public interface ICategoriaService
     {
-        void Create(CategoriaDto categoria);
+        CategoriaDto Create(CreateCategoriaDto categoria);
         CategoriaDto Get(int Id);
         List<CategoriaDto> GetAll();
         void Update(CategoriaDto categoria);

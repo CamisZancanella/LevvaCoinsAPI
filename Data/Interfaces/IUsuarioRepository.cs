@@ -1,5 +1,5 @@
 ﻿using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
+using LevvaCoins.Logic.Dtos;
 
 namespace LevvaCoins.Data.Interfaces
 {

@@ -1,5 +1,4 @@
-﻿using LevvaCoins.Logic.Dto;
-using LevvaCoins.Logic.Dtos;
+﻿using LevvaCoins.Logic.Dtos;
 
 namespace LevvaCoins.Logic.Interfaces
 {
@@ -10,6 +9,6 @@ namespace LevvaCoins.Logic.Interfaces
         List<UsuarioDto> GetAll();
         void Update(UsuarioDto usuario);
         void Delete(int Id);
-        LoginDto Login(LoginDto login);
+        LoginResponseDto Login(LoginDto login);
     }
 }

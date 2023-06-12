@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LevvaCoins.Data.Interfaces;
 using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
+using LevvaCoins.Logic.Dtos;
 using LevvaCoins.Logic.Interfaces;
 
 namespace LevvaCoins.Logic.Services
@@ -16,11 +16,13 @@ namespace LevvaCoins.Logic.Services
             _mapper = mapper;
         }
 
-        public void Create(TransacaoDto transacao)
+        public TransacaoDto Create(int userId, CreateTransacaoDto transacao)
         {
             var _transacao = _mapper.Map<Transacao>(transacao);
-            _repository.Create(_transacao);
+            _transacao.UserId = userId;
+            var transactionDto = _repository.Create(_transacao);
 
+            return _mapper.Map<TransacaoDto>(transactionDto);
         }
 
         public void Delete(int Id)
@@ -38,6 +40,12 @@ namespace LevvaCoins.Logic.Services
         {
             var transacaos = _mapper.Map<List<TransacaoDto>>(_repository.GetAll());
             return transacaos;
+        }
+
+        public List<TransacaoDto> SearchDescription(string search)
+        {
+            var transactions = _repository.SearchByDescription(search);
+            return _mapper.Map<List<TransacaoDto>>(transactions);
         }
 
         public void Update(TransacaoDto transacao)

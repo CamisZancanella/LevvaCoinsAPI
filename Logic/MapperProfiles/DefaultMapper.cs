@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
+using LevvaCoins.Logic.Dtos;
 
 namespace LevvaCoins.Logic.MapperProfiles
 {
@@ -10,7 +10,9 @@ namespace LevvaCoins.Logic.MapperProfiles
         {
           CreateMap<UsuarioDto, Usuario>().ReverseMap();
           CreateMap<TransacaoDto, Transacao>().ReverseMap();
+          CreateMap<CreateTransacaoDto, Transacao>().ReverseMap();
           CreateMap<CategoriaDto, Categoria>().ReverseMap();
+          CreateMap<CreateCategoriaDto, Categoria>().ReverseMap();
         }
     }
 }

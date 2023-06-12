@@ -2,7 +2,7 @@
 using LevvaCoins.Data.Interfaces;
 using LevvaCoins.Data.Repositories;
 using LevvaCoins.Domain.Models;
-using LevvaCoins.Logic.Dto;
+using LevvaCoins.Logic.Dtos;
 using LevvaCoins.Logic.Interfaces;
 
 namespace LevvaCoins.Logic.Services
@@ -18,10 +18,11 @@ namespace LevvaCoins.Logic.Services
 
            
         }
-        public void Create(CategoriaDto categoria)
+        public CategoriaDto Create(CreateCategoriaDto categoria)
         {
             var _categoria = _mapper.Map<Categoria>(categoria);
-            _repository.Create(_categoria);
+
+            return _mapper.Map<CategoriaDto>(_repository.Create(_categoria));
         }
 
         public void Delete(int Id)

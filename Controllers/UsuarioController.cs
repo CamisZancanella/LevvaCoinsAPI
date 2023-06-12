@@ -1,5 +1,4 @@
-﻿using LevvaCoins.Logic.Dto;
-using LevvaCoins.Logic.Dtos;
+﻿using LevvaCoins.Logic.Dtos;
 using LevvaCoins.Logic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LevvaCoins.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -24,31 +23,31 @@ namespace LevvaCoins.Controllers
             return Created("", usuario);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<UsuarioDto> Get(int id)
         {
             return _service.Get(id);
         }
 
-        [HttpGet("list")]
+        [HttpGet]
         public ActionResult<List<UsuarioDto>> GetAll()
         {
             return _service.GetAll();
         }
 
-        [HttpPut]
-        public IActionResult Update(UsuarioDto usuario)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, UsuarioDto usuario)
         {
             _service.Update(usuario);
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _service.Delete(id);
             return Ok(); 
         }
-        [HttpPost("login")]
+        [HttpPost("auth")]
         [AllowAnonymous]
         public ActionResult<LoginDto> Login(LoginDto loginDto)
         {
