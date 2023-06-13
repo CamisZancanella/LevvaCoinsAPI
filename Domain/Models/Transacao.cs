@@ -15,5 +15,7 @@ namespace LevvaCoins.Domain.Models
         public virtual Categoria Category { get; set; }
         public virtual Usuario User { get; set; }
 
+        
+
     }
 }

@@ -15,6 +15,7 @@ namespace Levva.Newbies.Coins.Data.Repositories
 
         public Transacao Create(Transacao transacao)
         {
+            transacao.CreatedAt = DateTime.Now;
             _context.Transacao.Add(transacao);
             _context.SaveChanges();
 
@@ -35,7 +36,7 @@ namespace Levva.Newbies.Coins.Data.Repositories
 
         public List<Transacao> GetAll()
         {
-            return _context.Transacao.Include(x => x.Category).ToList();
+            return _context.Transacao.Include(x => x.Category).OrderByDescending(x => x.CreatedAt).ToList();
         }
 
         public ICollection<Transacao> SearchByDescription(string search)
